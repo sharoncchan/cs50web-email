@@ -169,25 +169,32 @@ function email_content(email_id,mailbox){
     const body= document.createElement("div");
     body.classList.add("row", "mt-5", "mb-3","email-body");
 
+
     sender.innerHTML ="<b>From:</b>"+ "&nbsp" + individual_email["sender"];
     recipients.innerHTML = "<b>To: </b>" + "&nbsp"+ individual_email["recipients"];
     const subject =  individual_email["subject"];
     timestamp.innerHTML = "<b>Sent at: </b> " + "&nbsp" + individual_email["timestamp"];
     body.innerHTML = individual_email["body"];
 
-    // Add in a reply button
-    const reply_button = document.createElement("button");
-    reply_button.classList.add("btn", "btn-primary", "mt-5", "text-left");
-    const reply_text = document.createTextNode ("Reply");
-    reply_button.append(reply_text);
-
+    
     // Append the individual contents into the div
-    element.append(sender, recipients, timestamp, body, reply_button);
+    element.append(sender, recipients, timestamp, body);
 
     // Display the content of the email
     document.querySelector('#individual-email').innerHTML = `<h3>${subject}</h3>`;
     document.querySelector("#individual-email").append(element);
 
+    // Add in a reply button
+    const reply_archive = document.createElement("div")
+    reply_archive.classList.add("row", "mt-5")
+
+    const reply_button = document.createElement("button");
+    reply_button.classList.add("col-md-2","btn", "btn-primary");
+    const reply_text = document.createTextNode ("Reply");
+    reply_button.append(reply_text);
+    reply_archive.append(reply_button);
+
+    document.querySelector("#individual-email").append(reply_archive);
 
     // If the reply button is clicked, bring user to the email composition form
     reply_button.addEventListener("click", ()=>{
@@ -210,7 +217,6 @@ function email_content(email_id,mailbox){
 
    
     // If viewing an inbox or archive email, there should be an archive button
-
     if (mailbox == "inbox"  || mailbox =="archive"){
       console.log("I am clicking into an eamil from the inbox or archive");
 
@@ -220,17 +226,19 @@ function email_content(email_id,mailbox){
       // Create the text for the archive button depending on whether the email is archived
       var message = "";
       if (individual_email["archived"]== true){
-        message = "Unarchive this email";
+        message = "Unarchive";
       }
       else{
-        message = "Archive this email";
+        message = "Archive";
       }
 
-      // Add the archive button into the div
+      // Add the archive button into the reply_archive div
       const archive_text = document.createTextNode(message);
-      archive_button.classList.add("btn","btn-primary","mt-3");
-      archive_button.append(archive_text)
-      document.querySelector("#individual-email").append(archive_button);
+      archive_button.classList.add("col-md-2","offset-md-1","btn","btn-primary");
+      archive_button.append(archive_text);
+      reply_archive.append(archive_button);
+      
+     
 
       // Set the new archive_status 
       if (individual_email["archived"] == true){

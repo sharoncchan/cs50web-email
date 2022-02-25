@@ -5,3 +5,7 @@ textarea {
 .email-body{
     white-space: pre-wrap;
 }
+
+.btn{
+    display: inline;
+}
