@@ -2,7 +2,7 @@
 
 This project is an email application that allow users to send and receive emails.
 
-This project was built using Django as a backend framework and HTML CSS and Javascript as frontend programming tools. All generated details are saved in a database, which is SQLite by default.
+This project was built using Django as a backend framework and HTML CSS and JavaScript as frontend programming tools. All generated details are saved in a database, which is SQLite by default.
 
 All webpages of the project are mobile-responsive.
 
